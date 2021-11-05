@@ -13,6 +13,7 @@ count = 0
 
 #ログイン
 def login():
+    driver.set_window_size('1800', '1000')
     driver.get('https://www.instagram.com/accounts/login/?source=auth_switcher')
     f = open('insta.txt','a',encoding= "utf-8")
     f.write("instagramにアクセスしました\n")
@@ -82,16 +83,22 @@ def clicknice():
     for i in range(random.randint(13, 16)):
         count = i
         try:
-            driver.find_element_by_class_name('_8-yf5').click()
+            element = driver.find_element_by_class_name('wpO6b')
+            #actions.move_to_element(element).perform()
+            # actions.click(element).perform()
+            # actions.perform()
+            # driver.find_element_by_class_name('_8-yf5').click()
+            driver.find_element_by_class_name('l8mY4').click()
             f = open('insta.txt','a',encoding= "utf-8")
             f.write("次の投稿へ移動しました\n")
             f.close()
             time.sleep(random.randint(random.randint(8, 10), random.randint(11, 13)))
 
-        except WebDriverException:
+        except WebDriverException as e:
             f = open('insta.txt','a',encoding= "utf-8")
             f.write("２つ目の位置でエラーが発生しました")
             f.write(str(datetime.datetime.now()) + "\n")
+            f.write(str(e.args)+ "\n")
             f.close()
             time.sleep(6)
 
@@ -106,7 +113,7 @@ def clicknice():
             f.write("3つ目の位置でエラーが発生しました ")
             f.write(str(datetime.datetime.now()) + "\n")
             f.close()
-    f = open('insta.txt','a')
+    f = open('insta.txt','a',encoding= "utf-8")
     f.write( str(count) + '件の投稿をいいねしました ' + str(datetime.datetime.now()) + "\n" )
     f.close()
 
